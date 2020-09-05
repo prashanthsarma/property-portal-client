@@ -13,7 +13,7 @@ interface ISignInResponse {
 
 
 export class AuthService extends BaseService {
-  private AUTH_URL = `${CurrentConfig.BASE_URL}/users`
+  private AUTH_URL = CurrentConfig.AUTH_URL || `${CurrentConfig.BASE_URL}/users`
 
   public async SignIn(body: ISignInRequestBody) {
     const signInUrl = `${this.AUTH_URL}/signin`;
