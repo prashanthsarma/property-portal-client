@@ -1,9 +1,16 @@
-interface LoginState {
-    email: string;
-    password: string;
+export interface LoginState {
+    currentUser: any;
+    signInError: string
+    signInStatus : SignInStatus
 }
 
-interface ILoginData {
-    property: keyof LoginState;
-    value: any;
+export enum SignInStatus {
+    SignedIn,
+    SignedOut,
+    TryingSignIn
+}
+
+export interface ISignInData {
+    email: string;
+    password: string;
 }  

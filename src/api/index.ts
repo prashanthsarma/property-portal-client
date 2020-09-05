@@ -1,3 +1,5 @@
+import { AuthService } from "./AuthService";
+
 export class API {
-  public static auth: auth
+  public static auth = new AuthService()
 }

@@ -1,0 +1,9 @@
+.signinContainer {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.signinContainer input {
+  width: 200px;
+}

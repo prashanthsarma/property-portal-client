@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from '../../../hooks/useForm';
+import { signIn, selectSignInStatus, signUp, selectSignInError } from '../slice'
+import { SignInStatus } from '../slice/interfaces';
+import { Redirect } from 'react-router-dom'
+import styles from './SignIn.module.css';
+
 
 export function SignIn() {
   const [values, setValues] = useForm({ email: '', password: '' });
   const dispatch = useDispatch();
+  const signInStatus = useSelector(selectSignInStatus);
+  const signInError = useSelector(selectSignInError);
 
+  const onSignInClicked = async () => {
+    dispatch(signIn(values))
+  }
+
+  const onSignUpClicked = () => {
+    dispatch(signUp(values))
+  }
+
+
+  if (signInStatus === SignInStatus.SignedIn) {
+    return <Redirect
+      to={{
+        pathname: "/",
+      }}
+    />
+  }
 
   return (
-    <div>
+    <div className={styles.signinContainer}>
       <label>Email</label>
       <input
         data-testid="signin-email"
@@ -31,7 +54,13 @@ export function SignIn() {
         value={values.password}
         onChange={setValues}>
       </input>
-      <button onClick={}>Sign In</button>
+      <div>
+        <button onClick={onSignInClicked}>Sign In</button>
+        <button onClick={onSignUpClicked}>Sign Up</button>
+      </div>
+      <div>
+        <p>{signInError}</p>
+      </div>
     </div>
   );
 }

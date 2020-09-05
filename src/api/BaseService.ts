@@ -1,7 +1,15 @@
 import { AxiosError } from "axios";
 import { default as axios } from 'axios';
+export interface IErrorObject {
+  message: string; field?: string
+}
 
-export type MethodType = 'POST' | 'GET' | 'PUT' | 'DELETE';
+export enum MethodType {
+  POST = 'POST',
+  GET = 'GET',
+  PUT = 'PUT',
+  DELETE = 'DELETE'
+}
 
 export class BaseService {
 
@@ -10,38 +18,48 @@ export class BaseService {
   }
 
 
-  protected async callAPI(url: string, method: MethodType, body: any, headers: any) {
+  protected async callAPI<Resp, Req>(url: string, method: MethodType, body: Req, headers: any) {
+    let data = null;
+    let error = '';
     try {
       const resp = await axios({
         headers,
         method,
         url,
+        data: body
       });
-      return resp.data;
+      data = resp.data
+      
     }
     catch (e) {
-      return this.handleError(e)
+      error = this.handleError(e)
     }
+    return {data: data as Resp, error}  ;
   }
 
-  protected handleError(e: AxiosError) {
+  protected handleError(e: AxiosError<{ errors: IErrorObject[] }>) {
     // handle error
-    const err = e as AxiosError;
+    const err = e;
+    let error = '';
     if (err.response != null && err.response!.status === 401) {
-      this.displayError("Login again")
+      error = this.displayError("Authentication failed")
       // Resend for a refresh token here and call the same api again
     }
     else {
       if (err.response != null) {
-        this.displayError(`${err.response.data}`)
+        error = this.displayError(err.response.data.errors[0].message )
       }
       else {
-        this.displayError(`${err.message}`)
+        error = this.displayError(err.message)
       }
     }
+    return error;
   }
 
   protected displayError(message: string) {
+    // We can have an alert service here to display
+    // error or allow the API consumer to show the error
     console.log(message);
+    return message
   }
 }
