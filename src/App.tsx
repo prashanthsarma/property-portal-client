@@ -7,11 +7,13 @@ import {
 import { LoginPage } from './features/login/LoginPage';
 import './App.css';
 import { Search } from './features/property/Search';
+import { Navbar } from './features/Navbar';
 
-function App() {  
+function App() {
   return (
     <div className="App">
       <Router>
+        <Navbar />
         <Switch>
           <Route exact path="/">
             <Search />

@@ -26,6 +26,14 @@ export const signUp = createAsyncThunk(
   }
 )
 
+export const signOut = createAsyncThunk(
+  'auth/signOut',
+  async (_, thunkAPI) => {
+    const response = await API.auth.SignOut()
+    return response;
+  }
+)
+
 export const loginSlice = createSlice({
   name: 'auth',
   initialState,
@@ -53,8 +61,8 @@ export const loginSlice = createSlice({
         } else {
           state.signInError = error;
         }
-      });
-      builder.addCase(signUp.pending, (state, action) => {
+      })
+      .addCase(signUp.pending, (state, action) => {
         state.signInStatus = SignInStatus.TryingSignIn;
       })
       .addCase(signUp.fulfilled, (state, action) => {
@@ -64,6 +72,18 @@ export const loginSlice = createSlice({
           state.signInStatus = SignInStatus.SignedIn;
         } else {
           state.signInError = error;
+        }
+      })
+      .addCase(signOut.pending, (state, action) => {
+        state.signInStatus = SignInStatus.TryingSignOut;
+      })
+      .addCase(signOut.fulfilled, (state, action) => {
+        const { data, error } = action.payload;
+        if (error === '') {
+          state.currentUser = null;
+          state.signInStatus = SignInStatus.SignedOut;
+        } else {
+          // state.signInError = error;
         }
       })
   }

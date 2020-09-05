@@ -1,6 +1,7 @@
 .signinContainer {
   display: flex;
   flex-direction: column;
+  align-items: start;
   width: 200px;
 }
 

@@ -27,6 +27,11 @@ export class AuthService extends BaseService {
     return resp;
   }
 
+  public async SignOut() {
+    const signOutUrl = `${this.AUTH_URL}/signOut`;
+    const resp = await this.callAPI<{}, null>(signOutUrl, MethodType.POST, null, null);
+    return resp;
+  }
 
   public async CurrentUser(){
     const currentUserUrl = `${this.AUTH_URL}/currentuser`;

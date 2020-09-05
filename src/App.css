@@ -2,10 +2,14 @@
   text-align: center;
 }
 
-:root{
-  --primary-bg: #ffffff;
-  --secondary-bg: #cccccc;
-  --primary-fg: #552dc2;
-  --secondary-fg: #FB9E01;
-   }
-  
+:root {
+  --primary-bg: #cccccc;
+  --secondary-bg: #ffffff;
+  --primary-fg: #404040;
+  --secondary-fg: #fb9e01;
+}
+
+body {
+ background: var(--primary-bg);
+ color: var(--primary-fg);
+}

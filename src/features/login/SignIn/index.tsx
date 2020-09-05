@@ -32,6 +32,7 @@ export function SignIn() {
 
   return (
     <div className={styles.signinContainer}>
+      <div className="m-2 align-items-baseline d-flex flex-column">
       <label>Email</label>
       <input
         data-testid="signin-email"
@@ -43,6 +44,8 @@ export function SignIn() {
         value={values.email}
         onChange={setValues}>
       </input>
+      </div>
+      <div className="m-2 align-items-baseline d-flex flex-column">
       <label>Password</label>
       <input
         data-testid="signin-password"
@@ -54,13 +57,14 @@ export function SignIn() {
         value={values.password}
         onChange={setValues}>
       </input>
-      <div>
-        <button onClick={onSignInClicked}>Sign In</button>
-        <button onClick={onSignUpClicked}>Sign Up</button>
       </div>
-      <div>
-        <p>{signInError}</p>
+      <div className="align-self-center">
+        <button className="m-2" onClick={onSignInClicked}>Sign In</button>
+        <button className="m-2" onClick={onSignUpClicked}>Sign Up</button>
       </div>
+
+      <p >{signInError}</p>
+
     </div>
   );
 }

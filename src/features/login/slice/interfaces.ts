@@ -7,7 +7,8 @@ export interface LoginState {
 export enum SignInStatus {
     SignedIn,
     SignedOut,
-    TryingSignIn
+    TryingSignIn,
+    TryingSignOut
 }
 
 export interface ISignInData {
