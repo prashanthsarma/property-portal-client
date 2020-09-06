@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './LoginPage.module.css';
-import { SignIn } from '../SignIn';
+import { SignIn } from './SignIn';
 
 export function LoginPage() {
   return (

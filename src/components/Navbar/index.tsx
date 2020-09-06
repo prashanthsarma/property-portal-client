@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory, Link } from "react-router-dom";
-import { selectSignInStatus, signOut } from '../login/slice';
+import { selectSignInStatus, signOut } from '../../reducers/login';
 import { useSelector, useDispatch } from 'react-redux';
-import { SignInStatus } from '../login/slice/interfaces';
+import { SignInStatus } from '../../reducers/login/interfaces';
 
 export const Navbar = (props: any) => {
   const signInStatus = useSelector(selectSignInStatus);
@@ -28,9 +28,11 @@ export const Navbar = (props: any) => {
           <li className="nav-item active">
             <Link className="nav-link" to="/" >Home</Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/listings">My Listings</Link>
-          </li>
+          {signInStatus === SignInStatus.SignedIn ?
+            <li className="nav-item">
+              <Link className="nav-link" to="/listings">My Listings</Link>
+            </li>
+            : null}
         </ul>
         <div className="navbar-item ml-auto" >
           {signInStatus === SignInStatus.SignedIn
@@ -47,5 +49,3 @@ export const Navbar = (props: any) => {
     </nav >
   );
 }
-
-// export const Navbar = withRouter(NavbarI);

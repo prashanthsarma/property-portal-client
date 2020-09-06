@@ -4,10 +4,12 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import { LoginPage } from './features/login/LoginPage';
+import { LoginPage } from './components/LoginPage';
 import './App.css';
-import { Search } from './features/property/Search';
-import { Navbar } from './features/Navbar';
+import { Home } from './components/Home';
+import { Navbar } from './components/Navbar';
+import ProtectedRoute from './components/common/ProtectedRoute';
+import { MyListings } from './components/MyListings';
 
 function App() {
   return (
@@ -16,14 +18,14 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Search />
+            <Home />
           </Route>
           <Route path="/login">
             <LoginPage />
           </Route>
-          {/* <Route path="/dashboard">
-            <Dashboard />
-          </Route> */}
+         <ProtectedRoute path="/listings">
+          <MyListings />
+         </ProtectedRoute>
         </Switch>
       </Router>
     </div>

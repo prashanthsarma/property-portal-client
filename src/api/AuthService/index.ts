@@ -1,15 +1,6 @@
 import { BaseService, MethodType } from "../BaseService"
 import { CurrentConfig } from "../../config/config"
-
-interface ISignInRequestBody {
-  email: string;
-  password: string;
-}
-
-interface ISignInResponse {
-  email: string;
-  id: string;
-}
+import { ISignInRequestBody, ISignInResponse, IUserIdResolveBody } from "@prashanthsarma/property-portal-common"
 
 
 export class AuthService extends BaseService {
@@ -33,8 +24,13 @@ export class AuthService extends BaseService {
     return resp;
   }
 
-  public async CurrentUser(){
+  public async CurrentUser() {
     const currentUserUrl = `${this.AUTH_URL}/currentuser`;
-    await this.callAPI(currentUserUrl, MethodType.GET, null, null);
+    return await this.callAPI(currentUserUrl, MethodType.GET, null, null);
+  }
+
+  public async ResolveUsers(body: IUserIdResolveBody) {
+    const url = `${this.AUTH_URL}/resolve`;
+    return await this.callAPI<{email:string,id:string}[], IUserIdResolveBody>(url, MethodType.POST, body, null);
   }
 }

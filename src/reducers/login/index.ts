@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../../../app/store';
-import { API } from '../../../api';
+import { AppThunk, RootState } from '../../app/store';
+import { API } from '../../api';
 import { SignInStatus, LoginState, ISignInData } from './interfaces';
 
 

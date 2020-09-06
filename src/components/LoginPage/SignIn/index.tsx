@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from '../../../hooks/useForm';
-import { signIn, selectSignInStatus, signUp, selectSignInError } from '../slice'
-import { SignInStatus } from '../slice/interfaces';
+import { signIn, selectSignInStatus, signUp, selectSignInError } from '../../../reducers/login'
+import { SignInStatus } from '../../../reducers/login/interfaces';
 import { Redirect } from 'react-router-dom'
 import styles from './SignIn.module.css';
 
@@ -33,30 +33,30 @@ export function SignIn() {
   return (
     <div className={styles.signinContainer}>
       <div className="m-2 align-items-baseline d-flex flex-column">
-      <label>Email</label>
-      <input
-        data-testid="signin-email"
-        name="email"
-        type="email"
-        required
-        minLength={1}
-        maxLength={25}
-        value={values.email}
-        onChange={setValues}>
-      </input>
+        <label>Email</label>
+        <input
+          data-testid="signin-email"
+          name="email"
+          type="email"
+          required
+          minLength={1}
+          maxLength={25}
+          value={values.email}
+          onChange={setValues}>
+        </input>
       </div>
       <div className="m-2 align-items-baseline d-flex flex-column">
-      <label>Password</label>
-      <input
-        data-testid="signin-password"
-        name="password"
-        type="password"
-        required
-        minLength={4}
-        maxLength={20}
-        value={values.password}
-        onChange={setValues}>
-      </input>
+        <label>Password</label>
+        <input
+          data-testid="signin-password"
+          name="password"
+          type="password"
+          required
+          minLength={4}
+          maxLength={20}
+          value={values.password}
+          onChange={setValues}>
+        </input>
       </div>
       <div className="align-self-center">
         <button className="m-2" onClick={onSignInClicked}>Sign In</button>
