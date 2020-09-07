@@ -26,11 +26,11 @@ export class AuthService extends BaseService {
 
   public async CurrentUser() {
     const currentUserUrl = `${this.AUTH_URL}/currentuser`;
-    return await this.callAPI(currentUserUrl, MethodType.GET, null, null);
+    return await this.callAPI<ISignInResponse | "", null>(currentUserUrl, MethodType.GET, null, null);
   }
 
   public async ResolveUsers(body: IUserIdResolveBody) {
     const url = `${this.AUTH_URL}/resolve`;
-    return await this.callAPI<{email:string,id:string}[], IUserIdResolveBody>(url, MethodType.POST, body, null);
+    return await this.callAPI<ISignInResponse[], IUserIdResolveBody>(url, MethodType.POST, body, null);
   }
 }

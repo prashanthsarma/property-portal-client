@@ -28,11 +28,13 @@ export function Home() {
     const getResolvedUsers = async () => {
       const ids = listings.map(l => l.userId).filter((v, i, a) => a.indexOf(v) === i);
       const users = await API.auth.ResolveUsers({ ids })
-      const usersResolved = users.data.reduce((result, r, i) => {
-        result[r.id] = r.email;
-        return result;
-      }, {} as UserResolvedState)
-      setUsers(usersResolved);
+      if (users.data != null && Array.isArray(users.data)) {
+        const usersResolved = users.data.reduce((result, r, i) => {
+          result[r.id] = r.email;
+          return result;
+        }, {} as UserResolvedState)
+        setUsers(usersResolved);
+      }
     }
     getResolvedUsers();
   }, [listings])

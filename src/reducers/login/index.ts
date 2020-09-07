@@ -3,7 +3,6 @@ import { AppThunk, RootState } from '../../app/store';
 import { API } from '../../api';
 import { SignInStatus, LoginState, ISignInData } from './interfaces';
 
-
 const initialState: LoginState = {
   currentUser: null,
   signInError: '',
@@ -34,6 +33,14 @@ export const signOut = createAsyncThunk(
   }
 )
 
+export const fetchCurrentUser = createAsyncThunk(
+  'auth/fetchCurrentUser',
+  async (_, thunkAPI) => {
+    const response = await API.auth.CurrentUser();
+    return response;
+  }
+)
+
 export const loginSlice = createSlice({
   name: 'auth',
   initialState,
@@ -50,6 +57,14 @@ export const loginSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        console.log(action.payload)
+        const { data, error } = action.payload;
+        if (data !== '') {
+          state.currentUser = data;
+          state.signInStatus = SignInStatus.SignedIn;
+        }
+      })
       .addCase(signIn.pending, (state, action) => {
         state.signInStatus = SignInStatus.TryingSignIn;
       })

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, Link } from "react-router-dom";
-import { selectSignInStatus, signOut } from '../../reducers/login';
+import { selectSignInStatus, signOut, fetchCurrentUser } from '../../reducers/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { SignInStatus } from '../../reducers/login/interfaces';
 
@@ -16,6 +16,9 @@ export const Navbar = (props: any) => {
   const onSignOutClicked = async () => {
     dispatch(signOut())
   }
+  useEffect(()=>{
+    dispatch(fetchCurrentUser())
+  },[])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
