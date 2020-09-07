@@ -66,6 +66,7 @@ export const loginSlice = createSlice({
       })
       .addCase(signIn.pending, (state, action) => {
         state.signInStatus = SignInStatus.TryingSignIn;
+        state.signInError = '';
       })
       .addCase(signIn.fulfilled, (state, action) => {
         const { data, error } = action.payload;
@@ -78,6 +79,7 @@ export const loginSlice = createSlice({
       })
       .addCase(signUp.pending, (state, action) => {
         state.signInStatus = SignInStatus.TryingSignIn;
+        state.signInError = '';
       })
       .addCase(signUp.fulfilled, (state, action) => {
         const { data, error } = action.payload;
@@ -90,6 +92,7 @@ export const loginSlice = createSlice({
       })
       .addCase(signOut.pending, (state, action) => {
         state.signInStatus = SignInStatus.TryingSignOut;
+        state.signInError = '';
       })
       .addCase(signOut.fulfilled, (state, action) => {
         const { error } = action.payload;
