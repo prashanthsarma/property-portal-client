@@ -15,7 +15,7 @@ interface IConfig {
 
 const config: IConfig = {
   production: {
-    BASE_URL: 'http://a7ed5a6cd31d94ebf86b32aae283b942-69471a12aa9be2af.elb.us-west-2.amazonaws.com/api'
+    BASE_URL: 'https://a7ed5a6cd31d94ebf86b32aae283b942-69471a12aa9be2af.elb.us-west-2.amazonaws.com/api'
   },
   development: {
     // Dont forget to add an entry in etc/hosts as 127.0.0.1 app.test.com 
