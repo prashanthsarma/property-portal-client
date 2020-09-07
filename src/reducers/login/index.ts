@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../../app/store';
+import { RootState } from '../../app/store';
 import { API } from '../../api';
 import { SignInStatus, LoginState, ISignInData } from './interfaces';
 
@@ -58,8 +58,7 @@ export const loginSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        console.log(action.payload)
-        const { data, error } = action.payload;
+        const { data } = action.payload;
         if (data !== '') {
           state.currentUser = data;
           state.signInStatus = SignInStatus.SignedIn;
@@ -93,12 +92,11 @@ export const loginSlice = createSlice({
         state.signInStatus = SignInStatus.TryingSignOut;
       })
       .addCase(signOut.fulfilled, (state, action) => {
-        const { data, error } = action.payload;
+        const { error } = action.payload;
         if (error === '') {
           state.currentUser = null;
           state.signInStatus = SignInStatus.SignedOut;
         } else {
-          // state.signInError = error;
         }
       })
   }
@@ -121,6 +119,7 @@ export const { updateLoginData } = loginSlice.actions;
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.login.value)`
+export const selectCurrentUser = (state: RootState) => state.auth.currentUser;
 export const selectSignInStatus = (state: RootState) => state.auth.signInStatus;
 export const selectSignInError = (state: RootState) => state.auth.signInError;
 

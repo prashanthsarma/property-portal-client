@@ -1,5 +1,7 @@
+import { ISignInResponse } from "@prashanthsarma/property-portal-common";
+
 export interface LoginState {
-    currentUser: any;
+    currentUser: ISignInResponse | null;
     signInError: string
     signInStatus : SignInStatus
 }

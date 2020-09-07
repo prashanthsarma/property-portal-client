@@ -1,5 +1,4 @@
-import React, { ChangeEvent, MouseEventHandler, MouseEvent, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { ChangeEvent, useState } from 'react';
 import { useForm } from '../../../hooks/useForm';
 import { PropertyType, AreaType, PriceType, Facility, IPropertyAttrs } from '@prashanthsarma/property-portal-common'
 import { API } from '../../../api';
@@ -158,6 +157,7 @@ export function AddListing() {
         <div className="align-self-center">
           <button className="m-2" onClick={onAddClicked}>Add</button>
         </div>
+        <p>{error}</p>
       </div>
     </form>
   );

@@ -13,11 +13,6 @@ export enum MethodType {
 
 export class BaseService {
 
-  constructor() {
-
-  }
-
-
   protected async callAPI<Resp, Req>(url: string, method: MethodType, body: Req, headers: any) {
     let data = null;
     let error = '';

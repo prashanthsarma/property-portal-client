@@ -1,9 +1,7 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../../app/store';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { API } from '../../api';
 import { PropertyState } from './interfaces';
-import { IPropertyAttrs } from '@prashanthsarma/property-portal-common';
-
 
 const initialState: PropertyState = {
   listings: [],

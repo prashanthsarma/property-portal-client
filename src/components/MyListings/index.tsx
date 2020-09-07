@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { API } from '../../api';
+import React, { useEffect, useCallback } from 'react';
 import { selectListings, selectLoadingListings, fetchUserPropertyListings, removeUserPropertyListings } from '../../reducers/property';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropertyCard } from '../common/PropertyCard';
@@ -14,10 +13,11 @@ export function MyListings() {
   const location = useLocation();
   const listings = useSelector(selectListings)
   const loading = useSelector(selectLoadingListings)
+  const stableDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    dispatch(fetchUserPropertyListings());
-  }, [location])
+    stableDispatch(fetchUserPropertyListings());
+  }, [location, stableDispatch])
 
 
   return (
@@ -31,20 +31,26 @@ export function MyListings() {
           <p>
             Your Listings
           </p>
-          <div className="p-4">
-            {listings.map(l =>
-              <PropertyCard key={l.id}
-                property={l}
-                appendNodes={
-                  <button className="ml-auto mr-5 mt-2"
-                    onClick={() => dispatch(removeUserPropertyListings(l.id))}
-                  >
-                    Remove
+          {loading
+            ? <div className="d-flex vh-70 align-items-center justify-content-center">
+              <p>Loading ...</p>
+            </div>
+            :
+            <div className="p-4">
+              {listings.map(l =>
+                <PropertyCard key={l.id}
+                  property={l}
+                  appendNodes={
+                    <button className="ml-auto mr-5 mt-2"
+                      onClick={() => dispatch(removeUserPropertyListings(l.id))}
+                    >
+                      Remove
                   </button>
-                }
-              />
-            )}
-          </div>
+                  }
+                />
+              )}
+            </div>
+          }
         </div>
       </Route>
     </Switch>

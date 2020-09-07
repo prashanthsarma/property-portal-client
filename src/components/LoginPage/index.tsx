@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
 import styles from './LoginPage.module.css';
 import { SignIn } from './SignIn';
 

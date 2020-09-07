@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { API } from '../../api';
 import { fetchPropertyListings, selectListings, selectLoadingListings } from '../../reducers/property';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,17 +11,14 @@ export function Home() {
   const [users, setUsers] = useState({} as UserResolvedState);
 
   const dispatch = useDispatch();
+  const stableDispatch = useCallback(dispatch, [])
+
   const listings = useSelector(selectListings)
   const loading = useSelector(selectLoadingListings)
 
-  const onCurrentUser = async () => {
-    const response = await API.auth.CurrentUser();
-    console.log(response);
-  }
-
   useEffect(() => {
-    dispatch(fetchPropertyListings());
-  }, [])
+    stableDispatch(fetchPropertyListings());
+  }, [stableDispatch])
 
   useEffect(() => {
 
@@ -41,20 +38,26 @@ export function Home() {
 
   return (
     <div>
-      <button onClick={onCurrentUser}>Get Current User</button>
       <p>
         We have found following properties for you:
       </p>
-      <div className="p-4">
-        {listings.map(l =>
-          <PropertyCard
-            key={l.id}
-            property={l}
-            appendNodes={
-              <p className="ml-auto">{`Contact: ${users[l.userId]}`}</p>
-            } />
-        )}
-      </div>
+
+      {loading
+        ? <div className="d-flex vh-70 align-items-center justify-content-center">
+          <p>Loading ...</p>
+        </div>
+        : <div className="p-4">
+          {listings.map(l =>
+            <PropertyCard
+              key={l.id}
+              property={l}
+              appendNodes={
+                <p className="ml-auto">{`Contact: ${users[l.userId]}`}</p>
+              } />
+          )}
+        </div>
+      }
+
     </div>
   );
 }

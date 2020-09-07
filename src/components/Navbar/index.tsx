@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useHistory, Link } from "react-router-dom";
-import { selectSignInStatus, signOut, fetchCurrentUser } from '../../reducers/login';
+import { selectSignInStatus, signOut, fetchCurrentUser, selectCurrentUser } from '../../reducers/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { SignInStatus } from '../../reducers/login/interfaces';
 
 export const Navbar = (props: any) => {
   const signInStatus = useSelector(selectSignInStatus);
+  const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
   let history = useHistory();
+
+  const stableDispatch = useCallback(dispatch, [])
   const gotoLogin = () => {
     history.push('/login');
   }
@@ -16,13 +19,13 @@ export const Navbar = (props: any) => {
   const onSignOutClicked = async () => {
     dispatch(signOut())
   }
-  useEffect(()=>{
-    dispatch(fetchCurrentUser())
-  },[])
+  useEffect(() => {
+    stableDispatch(fetchCurrentUser())
+  }, [stableDispatch])
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">Property Portal</a>
+      <span className="navbar-brand">Property Portal</span>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -39,9 +42,12 @@ export const Navbar = (props: any) => {
         </ul>
         <div className="navbar-item ml-auto" >
           {signInStatus === SignInStatus.SignedIn
-            ? <button onClick={onSignOutClicked}>
-              Sign Out
+            ? <div className="d-flex justify-content-between">
+              <p className="m-0 mr-2">{`Logged in as ${currentUser!.email}`}</p>
+              <button onClick={onSignOutClicked}>
+                Sign Out
         </button>
+            </div>
             :
             <button onClick={gotoLogin}>
               Sign In

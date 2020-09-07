@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
+import React from 'react';
+import { Route, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectSignInStatus } from '../../reducers/login';
 import { SignInStatus } from '../../reducers/login/interfaces';

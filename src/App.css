@@ -13,3 +13,7 @@ body {
  background: var(--primary-bg);
  color: var(--primary-fg);
 }
+
+.vh-70 {
+  height: 70vh;
+}
