@@ -3,7 +3,6 @@ import { useForm } from '../../../hooks/useForm';
 import { PropertyType, AreaType, PriceType, Facility, IPropertyAttrs } from '@prashanthsarma/property-portal-common'
 import { API } from '../../../api';
 import { useHistory } from 'react-router-dom';
-import imageDataUri from 'image-data-uri';
 import { FileToDataUrl } from '../../../utils/FileToDataUrl';
 
 
@@ -28,7 +27,7 @@ export function AddListing() {
   const [error, setError] = useState('');
   const history = useHistory();
 
-  const generateOption = (value: string) => (<option value={value}>{value}</option>)
+  const generateOption = (value: string) => (<option key={value} value={value}>{value}</option>)
 
   const propertyTypeOptions = Object.values(PropertyType).map(generateOption);
   const areaTypeOptions = Object.values(AreaType).map(generateOption);

@@ -1309,10 +1309,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@prashanthsarma/property-portal-common@1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@prashanthsarma/property-portal-common/-/property-portal-common-1.0.11.tgz#7f3a7331d06a05e06cf7766f7cadb0130e08d20b"
-  integrity sha512-TwNM2nL73336nKv+4YCLws6O2u13lIBKA0fDCWgs7qluWY/BGxmnbkL23MgSv31nqnvU+5d8Fb02/1S7fr1ZhA==
+"@prashanthsarma/property-portal-common@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@prashanthsarma/property-portal-common/-/property-portal-common-1.0.15.tgz#59fe73d5631203d049b1d1bec6423f1c7427cf6e"
+  integrity sha512-E7HZSerc+cXLnhiAByXvE8F/L+WBITnlSCPSgNGUuHlUfGskmXOPMxEjaeiF4EhjfpPmOg0GQav56zlYmRSlZg==
   dependencies:
     "@types/cookie-session" "^2.0.39"
     "@types/express" "^4.17.5"

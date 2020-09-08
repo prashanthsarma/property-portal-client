@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { API } from '../../api';
 import { SignInStatus, LoginState, ISignInData } from './interfaces';
-import { LoginMode, IVerifyGoogleTokenRequestBody, ISignInResponse } from '@prashanthsarma/property-portal-common';
+import { LoginMode, IVerifyGoogleTokenRequestBody } from '@prashanthsarma/property-portal-common';
 
 const initialState: LoginState = {
   currentUser: null,
