@@ -11,6 +11,11 @@ export interface IPropertyCardProps {
 
 export function PropertyCard(props: IPropertyCardProps) {
   const { property, appendNodes } = props;
+  
+  const imgUrl = property.images.length > 0 
+  ? `https://property-portal-images.s3.amazonaws.com/${property.images[0]}`
+  : house; 
+  
   return (
     <Card className="w-100 d-flex flex-column container-fluid mt-4">
       <div className="border-bottom mb-3">
@@ -25,7 +30,7 @@ export function PropertyCard(props: IPropertyCardProps) {
           <p>{`City: ${property.city}`}</p>
           <p>{`Facilities: ${property.facilities.join(', ')} `}</p>
         </div>
-        <div className={`${styles.imageWidth} col-12 col-sm-6`} style={{ backgroundImage: `url(${house})` }}>
+        <div className={`${styles.imageWidth} col-12 col-sm-6`} style={{ backgroundImage: `url(${imgUrl})` }}>
           {/* <img className="w-100"src={house} /> */}
         </div>
       </div>

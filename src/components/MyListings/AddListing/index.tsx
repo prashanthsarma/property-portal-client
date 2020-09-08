@@ -62,12 +62,12 @@ export function AddListing() {
     const fileList = (e.target as HTMLInputElement).files!;
     
     const images = await  FileToDataUrl.GetImageDataUrl(fileList)
-    //setValue(e.target.name, images);
-    console.log(images);
+    setValue('images', images);
+    // console.log(images);
   }
 
   return (
-    <form className="d-flex justify-content-center">
+    <form className="d-flex justify-content-center" onSubmit={onAddClicked}>
       <div className="w-50">
         <div className="form-row">
           <label>Header</label>
@@ -167,19 +167,16 @@ export function AddListing() {
         </div>
 
         <div className="custom-file">
-          <label className="custom-file-label">Choose file</label>
-          <input className="custom-file-input"
+          <input 
             accept="image/x-png,image/gif,image/jpeg"
-            name="images"
-            multiple={true}
+            multiple={false}
             onChange={handleDrop}
-            style={{ width: '140px' }}
             type="file"
           ></input>
         </div>
 
         <div className="align-self-center">
-          <button className="m-2" onClick={onAddClicked}>Add</button>
+          <button className="m-2" type="submit">Add</button>
         </div>
         <p>{error}</p>
       </div>
