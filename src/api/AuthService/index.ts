@@ -1,6 +1,8 @@
 import { BaseService, MethodType } from "../BaseService"
 import { CurrentConfig } from "../../config/config"
-import { ISignInRequestBody, ISignInResponse, IUserIdResolveBody } from "@prashanthsarma/property-portal-common"
+import {
+  ISignInRequestBody, ISignInResponse, IUserIdResolveBody, IVerifyGoogleTokenRequestBody
+} from "@prashanthsarma/property-portal-common"
 
 
 export class AuthService extends BaseService {
@@ -32,5 +34,11 @@ export class AuthService extends BaseService {
   public async ResolveUsers(body: IUserIdResolveBody) {
     const url = `${this.AUTH_URL}/resolve`;
     return await this.callAPI<ISignInResponse[], IUserIdResolveBody>(url, MethodType.POST, body, null);
+  }
+
+  public async verifyGoogleToken(body: IVerifyGoogleTokenRequestBody) {
+    const url = `${this.AUTH_URL}/verifyGoogleToken`;
+    const resp = await this.callAPI<ISignInResponse, IVerifyGoogleTokenRequestBody>(url, MethodType.POST, body, null);
+    return resp;
   }
 }

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { API } from '../../api';
 import { SignInStatus, LoginState, ISignInData } from './interfaces';
+import { LoginMode, IVerifyGoogleTokenRequestBody, ISignInResponse } from '@prashanthsarma/property-portal-common';
 
 const initialState: LoginState = {
   currentUser: null,
@@ -12,7 +13,7 @@ const initialState: LoginState = {
 export const signIn = createAsyncThunk(
   'auth/signIn',
   async (loginData: ISignInData, thunkAPI) => {
-    const response = await API.auth.SignIn(loginData)
+    const response = await API.auth.SignIn({...loginData, loginMode:LoginMode.manual})
     return response;
   }
 )
@@ -20,7 +21,7 @@ export const signIn = createAsyncThunk(
 export const signUp = createAsyncThunk(
   'auth/signUp',
   async (loginData: ISignInData, thunkAPI) => {
-    const response = await API.auth.SignUp(loginData)
+    const response = await API.auth.SignUp({...loginData, loginMode:LoginMode.manual})
     return response;
   }
 )
@@ -37,6 +38,16 @@ export const fetchCurrentUser = createAsyncThunk(
   'auth/fetchCurrentUser',
   async (_, thunkAPI) => {
     const response = await API.auth.CurrentUser();
+    if(response.data !== '' && response.data.loginMode === LoginMode.gmail){
+    }
+    return response;
+  }
+)
+
+export const verifyGoogleToken = createAsyncThunk(
+  'auth/verifyGoogleToken',
+  async (body : IVerifyGoogleTokenRequestBody, thunkAPI) => {
+    const response = await API.auth.verifyGoogleToken(body);
     return response;
   }
 )
@@ -100,6 +111,19 @@ export const loginSlice = createSlice({
           state.currentUser = null;
           state.signInStatus = SignInStatus.SignedOut;
         } else {
+        }
+      })
+      .addCase(verifyGoogleToken.pending, (state, action) => {
+        state.signInStatus = SignInStatus.TryingSignIn;
+        state.signInError = '';
+      })
+      .addCase(verifyGoogleToken.fulfilled, (state, action) => {
+        const { data, error } = action.payload;
+        if (error === '') {
+          state.currentUser = data;
+          state.signInStatus = SignInStatus.SignedIn;
+        } else {
+          state.signInError = error;
         }
       })
   }

@@ -3,6 +3,8 @@ import { useForm } from '../../../hooks/useForm';
 import { PropertyType, AreaType, PriceType, Facility, IPropertyAttrs } from '@prashanthsarma/property-portal-common'
 import { API } from '../../../api';
 import { useHistory } from 'react-router-dom';
+import imageDataUri from 'image-data-uri';
+import { FileToDataUrl } from '../../../utils/FileToDataUrl';
 
 
 const defaultProperty: IPropertyAttrs = {
@@ -17,7 +19,8 @@ const defaultProperty: IPropertyAttrs = {
   city: "Bengaluru",
   lat: -1,
   lon: -1,
-  userId: ""
+  userId: "",
+  images: []
 }
 
 export function AddListing() {
@@ -53,6 +56,14 @@ export function AddListing() {
       newFacilities.push(e.target.value as Facility);
     }
     setValue(e.target.name, newFacilities);
+  }
+
+  const handleDrop = async (e: ChangeEvent<HTMLInputElement>) => {
+    const fileList = (e.target as HTMLInputElement).files!;
+    
+    const images = await  FileToDataUrl.GetImageDataUrl(fileList)
+    //setValue(e.target.name, images);
+    console.log(images);
   }
 
   return (
@@ -154,11 +165,24 @@ export function AddListing() {
             {facilitiesOptions}
           </select>
         </div>
+
+        <div className="custom-file">
+          <label className="custom-file-label">Choose file</label>
+          <input className="custom-file-input"
+            accept="image/x-png,image/gif,image/jpeg"
+            name="images"
+            multiple={true}
+            onChange={handleDrop}
+            style={{ width: '140px' }}
+            type="file"
+          ></input>
+        </div>
+
         <div className="align-self-center">
           <button className="m-2" onClick={onAddClicked}>Add</button>
         </div>
         <p>{error}</p>
       </div>
-    </form>
+    </form >
   );
 }

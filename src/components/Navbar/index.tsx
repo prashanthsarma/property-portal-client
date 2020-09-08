@@ -3,10 +3,20 @@ import { useHistory, Link } from "react-router-dom";
 import { selectSignInStatus, signOut, fetchCurrentUser, selectCurrentUser } from '../../reducers/login';
 import { useSelector, useDispatch } from 'react-redux';
 import { SignInStatus } from '../../reducers/login/interfaces';
+import { LoginMode } from '@prashanthsarma/property-portal-common';
+import { useGoogleLogout } from 'react-google-login';
+import GoogleButton from 'react-google-button'
+import styles from './Navbar.module.css'
 
-export const Navbar = (props: any) => {
+
+export const Navbar = () => {
   const signInStatus = useSelector(selectSignInStatus);
   const currentUser = useSelector(selectCurrentUser);
+  const { loaded, signOut: googleSignOut } = useGoogleLogout({
+    clientId: "55275377596-hmrom5kugl9c3n9dk6oc4ftk94qh5umi.apps.googleusercontent.com",
+    onLogoutSuccess: () => dispatch(signOut())
+  })
+
   const dispatch = useDispatch();
 
   let history = useHistory();
@@ -19,9 +29,41 @@ export const Navbar = (props: any) => {
   const onSignOutClicked = async () => {
     dispatch(signOut())
   }
+
   useEffect(() => {
     stableDispatch(fetchCurrentUser())
+
   }, [stableDispatch])
+
+  const renderSignOutButton = () => {
+    switch (currentUser!.loginMode) {
+      case LoginMode.gmail: {
+        return (
+          <>
+            {loaded
+              ? <GoogleButton
+                className={styles.LogoutStyle}
+                type="light"
+                label="Logout"
+                onClick={() => googleSignOut()} />
+              : null
+            }
+          </>
+        )
+      }
+      case LoginMode.manual:
+      default: {
+        return (
+          <button onClick={onSignOutClicked}>
+            {`Sign Out`}
+          </button>
+        )
+      }
+
+    }
+  }
+
+
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,16 +84,15 @@ export const Navbar = (props: any) => {
         </ul>
         <div className="navbar-item ml-auto" >
           {signInStatus === SignInStatus.SignedIn
-            ? <div className="d-flex justify-content-between">
+            ?
+            <div className="d-flex justify-content-between align-items-center">
               <p className="m-0 mr-2">{`Logged in as ${currentUser!.email}`}</p>
-              <button onClick={onSignOutClicked}>
-                Sign Out
-        </button>
+              {renderSignOutButton()}
             </div>
             :
             <button onClick={gotoLogin}>
-              Sign In
-        </button>
+              {`Sign In`}
+            </button>
           }
         </div>
       </div>

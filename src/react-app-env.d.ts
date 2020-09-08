@@ -6,3 +6,5 @@ declare module JSX {
 		nav: React.DetailedDivProps<React.DivHTMLAttributes<HTMLDivElement>, HTMLDivElement>
 	}
 }
+
+declare module 'image-data-uri'
