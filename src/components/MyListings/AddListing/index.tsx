@@ -16,8 +16,8 @@ const defaultProperty: IPropertyAttrs = {
   facilities: [Facility.PowerBackUp, Facility.ServiceLift],
   address: "Mahadevpura",
   city: "Bengaluru",
-  lat: -1,
-  lon: -1,
+  lat: 0,
+  lon: 0,
   userId: "",
   images: []
 }
@@ -59,17 +59,17 @@ export function AddListing() {
 
   const handleDrop = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = (e.target as HTMLInputElement).files!;
-    
-    const images = await  FileToDataUrl.GetImageDataUrl(fileList)
+
+    const images = await FileToDataUrl.GetImageDataUrl(fileList)
     setValue('images', images);
     // console.log(images);
   }
 
   return (
     <form className="d-flex justify-content-center" onSubmit={onAddClicked}>
-      <div className="w-50">
-        <div className="form-row">
-          <label>Header</label>
+      <div className="container">
+        <div className="form-row mr-2">
+          <label>Property Listing Header</label>
           <input
             className="form-control"
             name="header"
@@ -81,101 +81,149 @@ export function AddListing() {
             onChange={setValues}>
           </input>
         </div>
-        <div className="form-row">
-          <label>Address</label>
-          <input
-            className="form-control"
-            name="address"
-            type="text"
-            required
-            minLength={5}
-            maxLength={50}
-            value={values.address}
-            onChange={setValues}>
-          </input>
+        <div className="d-flex flex-row flex-wrap">
+          <div className="form-row mr-2 flex-grow-1">
+            <label>Address</label>
+            <input
+              className="form-control"
+              name="address"
+              type="text"
+              required
+              minLength={5}
+              maxLength={250}
+              value={values.address}
+              onChange={setValues}>
+            </input>
+          </div>
+          <div className="form-row mr-2">
+            <label>City</label>
+            <input
+              className="form-control"
+              name="city"
+              type="text"
+              required
+              minLength={5}
+              maxLength={50}
+              value={values.city}
+              onChange={setValues}>
+            </input>
+          </div>
         </div>
-        <div className="form-row">
-          <label>Property Type</label>
-          <select
-            className="form-control"
-            name="propertyType"
-            required
-            value={values.propertyType}
-            onChange={setValues}>
-            {propertyTypeOptions}
-          </select>
+        <div className="d-flex flex-row flex-wrap">
+          <div className="form-row mr-2">
+            <label>Property Type</label>
+            <select
+              className="form-control"
+              name="propertyType"
+              required
+              value={values.propertyType}
+              onChange={setValues}>
+              {propertyTypeOptions}
+            </select>
+          </div>
+          <div className="form-row mr-2">
+            <label>Layout</label>
+            <select
+              className="form-control"
+              name="areaType"
+              required
+              value={values.areaType}
+              onChange={setValues}>
+              {areaTypeOptions}
+            </select>
+          </div>
+          <div className="form-row mr-2 flex-grow-1">
+            <label>Total Area(Sq. ft)</label>
+            <input
+              className="form-control"
+              name="area"
+              type="number"
+              required
+              min={50}
+              max={1000000}
+              value={values.area}
+              onChange={setValues}>
+            </input>
+          </div>
+          <div className="form-row mr-2">
+            <label>Listing Type</label>
+            <select
+              className="form-control"
+              name="priceType"
+              required
+              value={values.priceType}
+              onChange={setValues}>
+              {priceTypeOptions}
+            </select>
+          </div>
+          <div className="form-row mr-2 flex-grow-1">
+            <label>Price</label>
+            <input
+              className="form-control"
+              name="price"
+              type="number"
+              required
+              min={100}
+              max={1000000}
+              value={values.price}
+              onChange={setValues}>
+            </input>
+          </div>
         </div>
-        <div className="form-row">
-          <label>Area(Sq. ft)</label>
-          <input
-            className="form-control"
-            name="area"
-            type="number"
-            required
-            min={50}
-            max={1000000}
-            value={values.area}
-            onChange={setValues}>
-          </input>
+        {/* <div className="d-flex flex-row flex-wrap">
+          
+          
+        </div> */}
+        <div className="d-flex flex-row flex-wrap">
+          <div className="form-row mr-2 flex-grow-1">
+            <label>Facilities</label>
+            <select multiple
+              className="form-control"
+              name="facilities"
+              size={5}
+              value={values.facilities}
+              onChange={onFacilitySelect}>
+              {facilitiesOptions}
+            </select>
+          </div>
+          <div className="align-self-center form-row mr-2">
+            <label>Latitude</label>
+            <input
+              className="form-control"
+              name="lat"
+              type="number"
+              min={-90}
+              max={90}
+              value={values.lat}
+              onChange={setValues}>
+            </input>
+          </div>
+          <div className="align-self-center form-row mr-2">
+            <label>Longitude</label>
+            <input
+              className="form-control"
+              name="lon"
+              type="number"
+              required
+              min={-180}
+              max={180}
+              value={values.lon}
+              onChange={setValues}>
+            </input>
+          </div>
+          <div className="align-self-center form-row mr-2">
+          <label>Upload Property image</label>
+            <input className="form-control-file"
+              accept="image/x-png,image/gif,image/jpeg"
+              multiple={false}
+              onChange={handleDrop}
+              type="file"
+            ></input>
+          </div>
+          
         </div>
-        <div className="form-row">
-          <label>Layout</label>
-          <select
-            className="form-control"
-            name="areaType"
-            required
-            value={values.areaType}
-            onChange={setValues}>
-            {areaTypeOptions}
-          </select>
-        </div>
-        <div className="form-row">
-          <label>Price</label>
-          <input
-            className="form-control"
-            name="price"
-            type="number"
-            required
-            min={100}
-            max={1000000}
-            value={values.price}
-            onChange={setValues}>
-          </input>
-        </div>
-        <div className="form-row">
-          <label>Listing Type</label>
-          <select
-            className="form-control"
-            name="priceType"
-            required
-            value={values.priceType}
-            onChange={setValues}>
-            {priceTypeOptions}
-          </select>
-        </div>
-        <div className="form-row">
-          <label>Facility Type</label>
-          <select multiple
-            className="form-control"
-            name="facilities"
-            size={5}
-            value={values.facilities}
-            onChange={onFacilitySelect}>
-            {facilitiesOptions}
-          </select>
-        </div>
-
-        <div className="custom-file">
-          <input 
-            accept="image/x-png,image/gif,image/jpeg"
-            multiple={false}
-            onChange={handleDrop}
-            type="file"
-          ></input>
-        </div>
-
-        <div className="align-self-center">
-          <button className="m-2" type="submit">Add</button>
+        <div className="align-self-center mt-4">
+          <button className="m-2 btn btn-primary" type="submit">Add New Property Listing</button>
         </div>
         <p>{error}</p>
       </div>

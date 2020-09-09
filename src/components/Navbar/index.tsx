@@ -7,13 +7,14 @@ import { LoginMode } from '@prashanthsarma/property-portal-common';
 import { useGoogleLogout } from 'react-google-login';
 import GoogleButton from 'react-google-button'
 import styles from './Navbar.module.css'
+import { CurrentConfig } from '../../config';
 
 
 export const Navbar = () => {
   const signInStatus = useSelector(selectSignInStatus);
   const currentUser = useSelector(selectCurrentUser);
   const { loaded, signOut: googleSignOut } = useGoogleLogout({
-    clientId: "55275377596-hmrom5kugl9c3n9dk6oc4ftk94qh5umi.apps.googleusercontent.com",
+    clientId: CurrentConfig.GOOG_CLIENT,
     onLogoutSuccess: () => dispatch(signOut())
   })
 
@@ -54,7 +55,7 @@ export const Navbar = () => {
       case LoginMode.manual:
       default: {
         return (
-          <button onClick={onSignOutClicked}>
+          <button className="btn btn-primary" onClick={onSignOutClicked}>
             {`Sign Out`}
           </button>
         )
@@ -85,12 +86,12 @@ export const Navbar = () => {
         <div className="navbar-item ml-auto" >
           {signInStatus === SignInStatus.SignedIn
             ?
-            <div className="d-flex justify-content-between align-items-center">
-              <p className="m-0 mr-2">{`Logged in as ${currentUser!.email}`}</p>
+            <div className="align-items-center d-flex flex-row-reverse">
               {renderSignOutButton()}
+              <p className="m-0 mr-2">{`${currentUser!.email}`}</p>
             </div>
             :
-            <button onClick={gotoLogin}>
+            <button className="btn btn-outline-primary" onClick={gotoLogin}>
               {`Sign In`}
             </button>
           }

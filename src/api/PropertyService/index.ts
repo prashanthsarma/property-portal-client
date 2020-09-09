@@ -1,5 +1,5 @@
 import { BaseService, MethodType } from "../BaseService"
-import { CurrentConfig } from "../../config/config"
+import { CurrentConfig } from "../../config"
 import  {IListingResponse, IPropertyAttrs} from "@prashanthsarma/property-portal-common"
 
 

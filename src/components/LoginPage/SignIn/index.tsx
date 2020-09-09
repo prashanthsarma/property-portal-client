@@ -5,14 +5,23 @@ import { signIn, selectSignInStatus, signUp, selectSignInError, verifyGoogleToke
 import { SignInStatus } from '../../../reducers/login/interfaces';
 import { Redirect } from 'react-router-dom'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
+import { CurrentConfig } from '../../../config';
 
 export function SignIn() {
+  const signInStatus = useSelector(selectSignInStatus);
   const [values, setValues] = useForm({ email: '', password: '' });
   const dispatch = useDispatch();
-  const signInStatus = useSelector(selectSignInStatus);
   const signInError = useSelector(selectSignInError);
 
-  const onSignInClicked = async () => {
+  if (signInStatus === SignInStatus.SignedIn) {
+    return <Redirect
+      to={{
+        pathname: "/",
+      }}
+    />
+  }
+
+  const onSignInClicked = () => {
     dispatch(signIn(values))
   }
 
@@ -28,58 +37,47 @@ export function SignIn() {
     }
   }
 
-  if (signInStatus === SignInStatus.SignedIn) {
-    return <Redirect
-      to={{
-        pathname: "/",
-      }}
-    />
-  }
-
   return (
     <div>
-      <div className="form-row">
-        <label>Email</label>
-        <input
-          data-testid="signin-email"
-          className="form-control"
-          name="email"
-          type="email"
-          required
-          minLength={1}
-          maxLength={25}
-          value={values.email}
-          onChange={setValues}>
-        </input>
-      </div>
-      <div className="form-row">
-        <label>Password</label>
-        <input
-          data-testid="signin-password"
-          className="form-control"
-          name="password"
-          type="password"
-          required
-          minLength={4}
-          maxLength={20}
-          value={values.password}
-          onChange={setValues}>
-        </input>
-      </div>
-      <div className="align-self-center">
-        <button className="m-2" onClick={onSignInClicked}>Sign In</button>
-        <button className="m-2" onClick={onSignUpClicked}>Sign Up</button>
-      </div>
+      <form>
+        <div className="form-row">
+          <label>Email</label>
+          <input
+            data-testid="signin-email"
+            className="form-control"
+            name="email"
+            type="email"
+            required
+            value={values.email}
+            onChange={setValues}>
+          </input>
+        </div>
+        <div className="form-row">
+          <label>Password</label>
+          <input
+            data-testid="signin-password"
+            className="form-control"
+            name="password"
+            type="password"
+            required
+            minLength={4}
+            maxLength={20}
+            value={values.password}
+            onChange={setValues}>
+          </input>
+        </div>
+        <div className="align-self-center mb-4">
+          <button className="m-2 btn btn-primary" type="submit" onClick={onSignInClicked} value="signIn">Sign In</button>
+          <button className="m-2 btn btn-secondary" type="submit" onClick={onSignUpClicked} value="signUp">Sign Up</button>
+        </div>
+        <p >{signInError}</p>
+      </form>
       <GoogleLogin
-        // Should move to config
-        clientId="55275377596-hmrom5kugl9c3n9dk6oc4ftk94qh5umi.apps.googleusercontent.com"
+        clientId={CurrentConfig.GOOG_CLIENT}
         onSuccess={onGoogleResponse}
-        onFailure={() => {}}
+        onFailure={() => { }}
         isSignedIn={true}
       />
-
-      <p >{signInError}</p>
-
     </div>
   );
 }

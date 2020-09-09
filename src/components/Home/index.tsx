@@ -44,7 +44,7 @@ export function Home() {
 
       {loading
         ? <div className="d-flex vh-70 align-items-center justify-content-center">
-          <p>Loading ...</p>
+          <div className="spinner-border"></div>
         </div>
         : <div className="p-4">
           {listings.map(l =>
@@ -52,7 +52,7 @@ export function Home() {
               key={l.id}
               property={l}
               appendNodes={
-                <p className="ml-auto">{`Contact: ${users[l.userId]}`}</p>
+                <p className="m-0">{`Contact: ${users[l.userId] ? users[l.userId] : "Fetching ..."}`}</p>
               } />
           )}
         </div>

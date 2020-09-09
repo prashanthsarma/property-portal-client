@@ -45,8 +45,12 @@ export function MyListings() {
       )
     } else {
       return (
-        <div className="d-flex vh-70 align-items-center justify-content-center">
+        <div className="d-flex center-page flex-column align-items-center justify-content-center">
           <p>{`Seems you have not listed any property`}</p>
+          <button className="btn btn-primary"
+            onClick={onGotoAdd}>
+            {`Add Property Listing`}
+          </button>
         </div>
       )
     }
@@ -59,11 +63,23 @@ export function MyListings() {
       </ProtectedRoute>
       <Route>
         <div>
-          <button onClick={onGotoAdd}>Add Property Listing</button>
-          <p>{`Your Listings`}</p>
+          {listings.length > 0 ?
+            <div className="d-flex w-100 mt-2">
+              <p className="font-weight-bold m-0 mt-3 w-100">
+                {`Your Listed Properties`}
+              </p>
+
+              <button className="btn btn-primary mr-4 position-absolute"
+                style={{ right: 0 }}
+                onClick={onGotoAdd}>
+                {`Add Property Listing`}
+              </button>
+
+            </div>
+            : null}
           {loading
-            ? <div className="d-flex vh-70 align-items-center justify-content-center">
-              <p>Loading ...</p>
+            ? <div className="d-flex align-items-center justify-content-center center-page">
+              <div className="spinner-border"></div>
             </div>
             :
             renderListings()

@@ -1,18 +1,16 @@
-
-.descriptionWidth{
+.descriptionWidth {
   font-size: x-large;
-  height: 35vh;
+  text-align: left;
 }
 
-.descriptionWidth p{
+.descriptionWidth p {
   margin: 0;
   padding: 0;
 }
 
-.imageWidth{
-  height: 35vh;
+.imageWidth {
+  height: 200px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
-

@@ -10,10 +10,18 @@
 }
 
 body {
- background: var(--primary-bg);
- color: var(--primary-fg);
+  background: var(--primary-bg);
+  color: var(--primary-fg);
 }
 
 .vh-70 {
   height: 70vh;
+}
+
+.center-page{
+  height: calc(100vh - 60px);
+}
+.spinner-border {
+  height: 70px;
+  width: 70px;
 }

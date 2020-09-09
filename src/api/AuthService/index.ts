@@ -1,5 +1,5 @@
 import { BaseService, MethodType } from "../BaseService"
-import { CurrentConfig } from "../../config/config"
+import { CurrentConfig } from "../../config"
 import {
   ISignInRequestBody, ISignInResponse, IUserIdResolveBody, IVerifyGoogleTokenRequestBody
 } from "@prashanthsarma/property-portal-common"
