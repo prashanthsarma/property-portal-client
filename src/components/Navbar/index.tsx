@@ -44,8 +44,8 @@ export const Navbar = () => {
             {loaded
               ? <GoogleButton
                 className={styles.LogoutStyle}
-                type="light"
-                label="Logout"
+                // type="light"
+                label="Sign out"
                 onClick={() => googleSignOut()} />
               : null
             }
