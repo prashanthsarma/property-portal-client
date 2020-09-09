@@ -21,12 +21,14 @@ export function SignIn() {
     />
   }
 
-  const onSignInClicked = () => {
+  const onSignInClicked = (e: any) => {
     dispatch(signIn(values))
+    e.preventDefault();
   }
 
-  const onSignUpClicked = () => {
+  const onSignUpClicked = (e: any) => {
     dispatch(signUp(values))
+    e.preventDefault();
   }
 
   const onGoogleResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {

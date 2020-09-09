@@ -1,0 +1,16 @@
+.carousel .slide {
+  height: 200px;
+  background: var(--secondary-bg);
+}
+
+.slide-contain img {
+  width: auto !important;
+}
+
+.carousel .control-next.control-arrow:before {
+  border-left: 8px solid #000;
+}
+
+.carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #000;
+}

@@ -59,6 +59,10 @@ export function AddListing() {
 
   const handleDrop = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = (e.target as HTMLInputElement).files!;
+    if(fileList.length > 8){
+      window.alert("Maximum only 8 images can be selected");
+      return;
+    }
 
     const images = await FileToDataUrl.GetImageDataUrl(fileList)
     setValue('images', images);
@@ -215,7 +219,7 @@ export function AddListing() {
           <label>Upload Property image</label>
             <input className="form-control-file"
               accept="image/x-png,image/gif,image/jpeg"
-              multiple={false}
+              multiple={true}
               onChange={handleDrop}
               type="file"
             ></input>
