@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import styles from './PropertyCard.module.css';
 import { IPropertyAttrs } from '@prashanthsarma/property-portal-common'
-import house from '../../../images/house.jpg'
 import { Card } from '../Card';
+import { CurrentConfig } from '../../../config';
 
 export interface IPropertyCardProps {
   property: IPropertyAttrs
@@ -13,8 +13,8 @@ export function PropertyCard(props: IPropertyCardProps) {
   const { property, appendNodes } = props;
 
   const imgUrl = property.images.length > 0
-    ? `https://property-portal-images.s3.amazonaws.com/${property.images[0]}`
-    : house;
+    ? `${CurrentConfig.CDN_URL}/${property.images[0]}`
+    : `${CurrentConfig.CDN_URL}/defaultHouseImage.jpg`;
 
   return (
     <Card className="w-100 d-flex flex-column container-fluid mt-4">

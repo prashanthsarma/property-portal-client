@@ -33,7 +33,7 @@ export function MyListings() {
               property={l}
               appendNodes={
                 <button
-                  className="ml-auto mr-5 mt-2"
+                  className="ml-auto mr-5 mt-2 btn btn-secondary"
                   onClick={() => dispatch(removeUserPropertyListings(l.id))}
                 >
                   {`Remove`}

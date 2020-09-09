@@ -76,7 +76,7 @@ export function AddListing() {
             type="text"
             required
             minLength={5}
-            maxLength={50}
+            maxLength={100}
             value={values.header}
             onChange={setValues}>
           </input>
