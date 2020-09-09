@@ -5,7 +5,6 @@ import { signIn, selectSignInStatus, signUp, selectSignInError, verifyGoogleToke
 import { SignInStatus } from '../../../reducers/login/interfaces';
 import { Redirect } from 'react-router-dom'
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login'
-import styles from './SignIn.module.css';
 
 export function SignIn() {
   const [values, setValues] = useForm({ email: '', password: '' });
@@ -38,11 +37,12 @@ export function SignIn() {
   }
 
   return (
-    <div className={styles.signinContainer}>
-      <div className="m-2 align-items-baseline d-flex flex-column">
+    <div>
+      <div className="form-row">
         <label>Email</label>
         <input
           data-testid="signin-email"
+          className="form-control"
           name="email"
           type="email"
           required
@@ -52,10 +52,11 @@ export function SignIn() {
           onChange={setValues}>
         </input>
       </div>
-      <div className="m-2 align-items-baseline d-flex flex-column">
+      <div className="form-row">
         <label>Password</label>
         <input
           data-testid="signin-password"
+          className="form-control"
           name="password"
           type="password"
           required
@@ -70,6 +71,7 @@ export function SignIn() {
         <button className="m-2" onClick={onSignUpClicked}>Sign Up</button>
       </div>
       <GoogleLogin
+        // Should move to config
         clientId="55275377596-hmrom5kugl9c3n9dk6oc4ftk94qh5umi.apps.googleusercontent.com"
         onSuccess={onGoogleResponse}
         onFailure={() => {}}
