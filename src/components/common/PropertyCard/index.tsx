@@ -3,7 +3,7 @@ import { IPropertyAttrs } from '@prashanthsarma/property-portal-common'
 import { Card } from '../Card';
 import { CurrentConfig } from '../../../config';
 import { Carousel } from 'react-responsive-carousel'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
 import styles from './PropertyCard.module.css';
 import "./styles.css"
 
@@ -27,7 +27,7 @@ export function PropertyCard(props: IPropertyCardProps) {
   ))
 
   return (
-    <Card className="w-100 d-flex flex-column container-fluid mt-4">
+    <Card className="w-100 d-flex flex-column container-fluid mt-4 property-card">
       <div className="border-bottom mb-3">
         <h2>{property.header}</h2>
       </div>
@@ -51,7 +51,7 @@ export function PropertyCard(props: IPropertyCardProps) {
             <span className="small">{`${property.facilities.join(', ')}`}</span>
           </p>
         </div>
-        <Carousel showArrows={true} className={`col-12 col-sm-6 ${styles.carousel}`} showThumbs={false}>
+        <Carousel showArrows={true} className={`col-12 col-sm-6`} showThumbs={false}>
           {carouselImages}
         </Carousel>
       </div>

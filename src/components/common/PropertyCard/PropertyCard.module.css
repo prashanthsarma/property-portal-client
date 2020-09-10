@@ -7,11 +7,3 @@
   margin: 0;
   padding: 0;
 }
-
-.imageWidth {
-  height: 200px;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-

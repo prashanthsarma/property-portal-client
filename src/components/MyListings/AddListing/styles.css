@@ -1,0 +1,20 @@
+.add-property-form .carousel .slide {
+  height: 200px;
+  background: var(--primary-bg);
+}
+
+.add-property-form .slide-contain img {
+  width: auto !important;
+}
+
+.add-property-form .carousel .control-next.control-arrow:before {
+  border-left: 8px solid #000;
+}
+
+.add-property-form .carousel .control-prev.control-arrow:before {
+  border-right: 8px solid #000;
+}
+
+.add-property-form-carousel {
+  max-width: 300px;
+}

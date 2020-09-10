@@ -5,11 +5,12 @@ import {
   Route,
 } from "react-router-dom";
 import { LoginPage } from './components/LoginPage';
-import './App.css';
 import { Home } from './components/Home';
 import { Navbar } from './components/Navbar';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { MyListings } from './components/MyListings';
+import './App.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // required by carousel
 
 function App() {
   return (

@@ -79,7 +79,7 @@ export function MyListings() {
             : null}
           {loading
             ? <div className="d-flex align-items-center justify-content-center center-page">
-              <div className="spinner-border"></div>
+              <div className="spinner-border width-height-70px"></div>
             </div>
             :
             renderListings()

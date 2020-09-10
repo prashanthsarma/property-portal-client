@@ -79,7 +79,7 @@ export const Navbar = () => {
           </li>
           {signInStatus === SignInStatus.SignedIn ?
             <li className="nav-item">
-              <Link className="nav-link" to="/listings">My Listings</Link>
+              <Link className="nav-link" to="/listings">My Properties</Link>
             </li>
             : null}
         </ul>

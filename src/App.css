@@ -21,7 +21,7 @@ body {
 .center-page{
   height: calc(100vh - 60px);
 }
-.spinner-border {
+.width-height-70px {
   height: 70px;
   width: 70px;
 }

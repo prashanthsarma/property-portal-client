@@ -4,6 +4,9 @@ import { PropertyType, AreaType, PriceType, Facility, IPropertyAttrs } from '@pr
 import { API } from '../../../api';
 import { useHistory } from 'react-router-dom';
 import { FileToDataUrl } from '../../../utils/FileToDataUrl';
+import { CurrentConfig } from '../../../config';
+import { Carousel } from 'react-responsive-carousel'
+import './styles.css'
 
 
 const defaultProperty: IPropertyAttrs = {
@@ -25,6 +28,7 @@ const defaultProperty: IPropertyAttrs = {
 export function AddListing() {
   const [values, setValues, setValue] = useForm(defaultProperty);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const generateOption = (value: string) => (<option key={value} value={value}>{value}</option>)
@@ -36,7 +40,9 @@ export function AddListing() {
 
   const onAddClicked = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const resp = await API.property.addUserPropertyListings(values);
+    setLoading(false);
     if (resp.error !== '') {
       setError(resp.error);
     } else {
@@ -59,7 +65,7 @@ export function AddListing() {
 
   const handleDrop = async (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = (e.target as HTMLInputElement).files!;
-    if(fileList.length > 8){
+    if (fileList.length > 8) {
       window.alert("Maximum only 8 images can be selected");
       return;
     }
@@ -69,8 +75,21 @@ export function AddListing() {
     // console.log(images);
   }
 
+  if (values.images.length < 1) {
+    values.images.push('defaultHouseImage.jpg')
+  }
+
+  const carouselImages = values.images.map((img, i) => (
+    <div key={`silde${i}`} className="h-100 slide-contain" style={{ objectFit: 'contain' }}>
+      <img src={img.startsWith("data:") ? img : `${CurrentConfig.CDN_URL}/${img}`}
+        alt="property-img"
+        className="h-100" />
+    </div>
+  ))
+
+
   return (
-    <form className="d-flex justify-content-center" onSubmit={onAddClicked}>
+    <form className="d-flex justify-content-center add-property-form" onSubmit={onAddClicked}>
       <div className="container">
         <div className="form-row mr-2">
           <label>Property Listing Header</label>
@@ -174,10 +193,6 @@ export function AddListing() {
             </input>
           </div>
         </div>
-        {/* <div className="d-flex flex-row flex-wrap">
-          
-          
-        </div> */}
         <div className="d-flex flex-row flex-wrap">
           <div className="form-row mr-2 flex-grow-1">
             <label>Facilities</label>
@@ -215,8 +230,14 @@ export function AddListing() {
               onChange={setValues}>
             </input>
           </div>
+
+        </div>
+        <div className="d-flex flex-column align-items-center">
+          <Carousel showArrows={true} showThumbs={true} className="add-property-form-carousel">
+            {carouselImages}
+          </Carousel>
           <div className="align-self-center form-row mr-2">
-          <label>Upload Property image</label>
+            <label>Upload Property image</label>
             <input className="form-control-file"
               accept="image/x-png,image/gif,image/jpeg"
               multiple={true}
@@ -224,10 +245,15 @@ export function AddListing() {
               type="file"
             ></input>
           </div>
-          
         </div>
         <div className="align-self-center mt-4">
-          <button className="m-2 btn btn-primary" type="submit">Add New Property Listing</button>
+          <button className="m-2 btn btn-primary" type="submit">
+            {loading ?
+              <div className="spinner-border" />
+              :
+              <>{`Add New Property Listing`}</>
+            }
+          </button>
         </div>
         <p>{error}</p>
       </div>
