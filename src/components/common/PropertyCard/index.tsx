@@ -50,6 +50,12 @@ export function PropertyCard(props: IPropertyCardProps) {
             <span>{`Facilities: `}</span>
             <span className="small">{`${property.facilities.join(', ')}`}</span>
           </p>
+          {property.lat && property.lon ?
+            <a target="_blank" rel="noopener noreferrer" href={`http://maps.google.com/?q=${property.lat},${property.lon}`}>
+              <small>Show on map</small>
+            </a>
+            : null
+          }
         </div>
         <Carousel showArrows={true} className={`col-12 col-sm-6`} showThumbs={false}>
           {carouselImages}

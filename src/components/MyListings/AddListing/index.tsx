@@ -17,11 +17,11 @@ const defaultProperty: IPropertyAttrs = {
   price: 14000,
   priceType: PriceType.Rent,
   facilities: [Facility.PowerBackUp, Facility.ServiceLift],
-  address: "Mahadevpura",
+  address: "Bengaluru Central",
   city: "Bengaluru",
-  lat: 0,
-  lon: 0,
-  userId: "",
+  lat: 12.976581,
+  lon: 77.568653,
+  userId: "", 
   images: []
 }
 
@@ -194,6 +194,32 @@ export function AddListing() {
           </div>
         </div>
         <div className="d-flex flex-row flex-wrap">
+          <div className="align-self-baseline form-row mr-2">
+            <label>Latitude</label>
+            <input
+              className="form-control"
+              name="lat"
+              type="number"
+              step={0.0000001}
+              min={-90}
+              max={90}
+              value={values.lat}
+              onChange={setValues}>
+            </input>
+          </div>
+          <div className="align-self-baseline form-row mr-2">
+            <label>Longitude</label>
+            <input
+              className="form-control"
+              name="lon"
+              type="number"
+              step={0.0000001}
+              min={-180}
+              max={180}
+              value={values.lon}
+              onChange={setValues}>
+            </input>
+          </div>
           <div className="form-row mr-2 flex-grow-1">
             <label>Facilities</label>
             <select multiple
@@ -205,34 +231,8 @@ export function AddListing() {
               {facilitiesOptions}
             </select>
           </div>
-          <div className="align-self-center form-row mr-2">
-            <label>Latitude</label>
-            <input
-              className="form-control"
-              name="lat"
-              type="number"
-              min={-90}
-              max={90}
-              value={values.lat}
-              onChange={setValues}>
-            </input>
-          </div>
-          <div className="align-self-center form-row mr-2">
-            <label>Longitude</label>
-            <input
-              className="form-control"
-              name="lon"
-              type="number"
-              required
-              min={-180}
-              max={180}
-              value={values.lon}
-              onChange={setValues}>
-            </input>
-          </div>
-
         </div>
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center mt-4">
           <Carousel showArrows={true} showThumbs={true} className="add-property-form-carousel">
             {carouselImages}
           </Carousel>
