@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { API } from '../../api';
-import { fetchPropertyListings, selectListings, selectLoadingListings } from '../../reducers/property';
+import { fetchAllProperties, selectListings, selectLoadingListings } from '../../reducers/property';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropertyCard } from '../common/PropertyCard';
 
@@ -17,7 +17,7 @@ export function Home() {
   const loading = useSelector(selectLoadingListings)
 
   useEffect(() => {
-    stableDispatch(fetchPropertyListings());
+    stableDispatch(fetchAllProperties());
   }, [stableDispatch])
 
   useEffect(() => {

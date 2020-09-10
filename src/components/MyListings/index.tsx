@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
-import { selectListings, selectLoadingListings, fetchUserPropertyListings, removeUserPropertyListings } from '../../reducers/property';
+import { selectListings, selectLoadingListings, fetchUserProperties, removeProperty } from '../../reducers/property';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropertyCard } from '../common/PropertyCard';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
@@ -17,7 +17,7 @@ export function MyListings() {
   const stableDispatch = useCallback(dispatch, [])
 
   useEffect(() => {
-    stableDispatch(fetchUserPropertyListings());
+    stableDispatch(fetchUserProperties());
   }, [location, stableDispatch])
 
   const onGotoAdd = () => {
@@ -34,7 +34,7 @@ export function MyListings() {
               appendNodes={
                 <button
                   className="ml-auto mr-5 mt-2 btn btn-secondary"
-                  onClick={() => dispatch(removeUserPropertyListings(l.id))}
+                  onClick={() => dispatch(removeProperty(l.id))}
                 >
                   {`Remove`}
                 </button>

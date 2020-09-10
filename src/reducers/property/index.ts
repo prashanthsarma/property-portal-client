@@ -9,26 +9,26 @@ const initialState: PropertyState = {
   loadingListings: false,
 };
 
-export const fetchPropertyListings = createAsyncThunk(
-  'property/fetchPropertyListings',
+export const fetchAllProperties = createAsyncThunk(
+  'property/fetchAllProperties',
   async (_, thunkAPI) => {
-    const response = await API.property.fetchPropertyListings();
+    const response = await API.property.fetchAllProperties();
     return response;
   }
 )
 
-export const fetchUserPropertyListings = createAsyncThunk(
-  'property/fetchUserPropertyListings',
+export const fetchUserProperties = createAsyncThunk(
+  'property/fetchUserProperties',
   async (_, thunkAPI) => {
-    const response = await API.property.fetchUserPropertyListings();
+    const response = await API.property.fetchUserProperties();
     return response;
   }
 )
 
-export const removeUserPropertyListings = createAsyncThunk(
-  'property/removeUserPropertyListings',
+export const removeProperty = createAsyncThunk(
+  'property/removeProperty',
   async (id: string, thunkAPI) => {
-    const response = await API.property.removeUserPropertyListings(id);
+    const response = await API.property.removeProperty(id);
     return response;
   }
 )
@@ -40,11 +40,11 @@ export const propertySlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchPropertyListings.pending, (state, action) => {
+      .addCase(fetchAllProperties.pending, (state, action) => {
         state.loadingListings = true;
         state.listings = [];
       })
-      .addCase(fetchPropertyListings.fulfilled, (state, action) => {
+      .addCase(fetchAllProperties.fulfilled, (state, action) => {
         const { data, error } = action.payload;
         if (error === '') {
           state.listings = data.listing;
@@ -53,11 +53,11 @@ export const propertySlice = createSlice({
           state.listingsError = error;
         }
       })
-      .addCase(fetchUserPropertyListings.pending, (state, action) => {
+      .addCase(fetchUserProperties.pending, (state, action) => {
         state.loadingListings = true;
         state.listings = [];
       })
-      .addCase(fetchUserPropertyListings.fulfilled, (state, action) => {
+      .addCase(fetchUserProperties.fulfilled, (state, action) => {
         const { data, error } = action.payload;
         if (error === '') {
           state.listings = data.listing;
@@ -66,7 +66,7 @@ export const propertySlice = createSlice({
           state.listingsError = error;
         }
       })
-      .addCase(removeUserPropertyListings.fulfilled, (state, action) => {
+      .addCase(removeProperty.fulfilled, (state, action) => {
         const { data, error } = action.payload;
         if (error === '') {
           state.listings = data.listing;

@@ -21,7 +21,7 @@ const defaultProperty: IPropertyAttrs = {
   city: "Bengaluru",
   lat: 12.976581,
   lon: 77.568653,
-  userId: "", 
+  userId: "",
   images: []
 }
 
@@ -41,7 +41,7 @@ export function AddListing() {
   const onAddClicked = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const resp = await API.property.addUserPropertyListings(values);
+    const resp = await API.property.addProperty(values);
     setLoading(false);
     if (resp.error !== '') {
       setError(resp.error);
