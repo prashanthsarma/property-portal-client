@@ -6,9 +6,9 @@ import { SignInStatus } from '../../reducers/login/interfaces';
 import { LoginMode } from '@prashanthsarma/property-portal-common';
 import { useGoogleLogout } from 'react-google-login';
 import GoogleButton from 'react-google-button'
-import styles from './Navbar.module.css'
 import { CurrentConfig } from '../../config';
-
+import logo from './../../images/logo.jpg'
+import styles from './Navbar.module.css'
 
 export const Navbar = () => {
   const signInStatus = useSelector(selectSignInStatus);
@@ -64,10 +64,9 @@ export const Navbar = () => {
     }
   }
 
-
-
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <img style={{ width: '50px' }} src={logo} alt='logo'></img>
       <span className="navbar-brand">Property Portal</span>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
