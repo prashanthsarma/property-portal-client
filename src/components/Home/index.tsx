@@ -43,8 +43,8 @@ export function Home() {
       </p>
 
       {loading
-        ? <div className="d-flex vh-70 align-items-center justify-content-center">
-          <div className="spinner-border width-height-70px"></div>
+        ? <div className="d-flex center-page align-items-center justify-content-center">
+          <div className="spinner-border spinner-large"></div>
         </div>
         : <div className="p-4">
           {listings.map(l =>

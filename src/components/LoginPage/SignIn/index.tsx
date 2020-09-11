@@ -16,7 +16,7 @@ export function SignIn() {
   if (signInStatus === SignInStatus.SignedIn) {
     return <Redirect
       to={{
-        pathname: "/",
+        pathname: "/listings",
       }}
     />
   }
@@ -34,7 +34,6 @@ export function SignIn() {
   const onGoogleResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     const onlineResp = response as GoogleLoginResponse
     if (onlineResp) {
-      console.log(onlineResp.tokenId)
       dispatch(verifyGoogleToken({ idToken: onlineResp.tokenId }))
     }
   }

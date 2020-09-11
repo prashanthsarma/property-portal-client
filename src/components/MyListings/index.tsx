@@ -3,7 +3,7 @@ import { selectListings, selectLoadingListings, fetchUserProperties, removePrope
 import { useDispatch, useSelector } from 'react-redux';
 import { PropertyCard } from '../common/PropertyCard';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
-import { AddListing } from './AddListing';
+import { AddOrEditListing } from './AddOrEditListing';
 import ProtectedRoute from '../common/ProtectedRoute';
 
 
@@ -32,16 +32,25 @@ export function MyListings() {
             <PropertyCard key={l.id}
               property={l}
               appendNodes={
-                <button
-                  className="ml-auto mr-5 mt-2 btn btn-secondary"
-                  onClick={() => dispatch(removeProperty(l.id))}
-                >
-                  {`Remove`}
-                </button>
+                <div className="ml-auto mr-3 mt-2">
+                  <button
+                    className="mr-2 btn btn-secondary"
+                    onClick={() => { history.push(`listings/${l.id}`) }}
+                  >
+                    {`Edit`}
+                  </button>
+                  <button
+                    className="mr-2 btn btn-danger"
+                    onClick={() => dispatch(removeProperty(l.id))}
+                  >
+                    {`Remove`}
+                  </button>
+                </div>
               }
             />
-          )}
-        </div>
+          )
+          }
+        </div >
       )
     } else {
       return (
@@ -58,8 +67,8 @@ export function MyListings() {
 
   return (
     <Switch>
-      <ProtectedRoute path="/listings/add">
-        <AddListing />
+      <ProtectedRoute path="/listings/:id">
+        <AddOrEditListing />
       </ProtectedRoute>
       <Route>
         <div>
@@ -79,7 +88,7 @@ export function MyListings() {
             : null}
           {loading
             ? <div className="d-flex align-items-center justify-content-center center-page">
-              <div className="spinner-border width-height-70px"></div>
+              <div className="spinner-border spinner-large"></div>
             </div>
             :
             renderListings()
